@@ -1,0 +1,55 @@
+# Medicalex — static SPA hosting for Mochahost (Apache / LiteSpeed cPanel)
+#
+# HOW TO USE:
+#   1. Build the site:  npm run build   (outputs to  dist/apps/web/)
+#   2. Upload the CONTENTS of dist/apps/web/ to your Mochahost public_html/
+#   3. Rename this file to  .htaccess  and place it in public_html/ (web root)
+#
+# This makes client-side routes (/products, /contact, /news, /confirmation, ...)
+# work on direct visit / refresh instead of returning a 404.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # --- Optional: reverse-proxy /hcgi/platform to a self-hosted PocketBase ---
+  # The frontend talks to PocketBase at the path /hcgi/platform (a Hostinger
+  # reverse proxy that does NOT exist on a plain cPanel host). If you run your
+  # OWN PocketBase instance elsewhere (e.g. on a VPS), uncomment the next line
+  # and set the target URL — the frontend will then reach it unchanged.
+  # Requires mod_proxy + mod_proxy_http (LiteSpeed supports the [P] flag too).
+  # RewriteRule "^hcgi/platform/(.*)$" "https://YOUR-POCKETBASE-HOST/$1" [P]
+  # ProxyPassReverse "/hcgi/platform/" "https://YOUR-POCKETBASE-HOST/"
+
+  # --- SPA fallback: serve index.html for all client-side routes ---
+  # Skip real files/directories (JS, CSS, images, fonts, catalog-demo/*, ...).
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  # Everything else falls back to the SPA shell.
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# --- Long-cache hashed static assets ---
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/avif "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# --- Compression ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# --- Security headers ---
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

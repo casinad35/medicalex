@@ -1,0 +1,38 @@
+Dossier des images démo du catalogue Medicalex
+================================================
+
+Chemin projet : apps/web/public/catalog-demo/
+
+Structure du catalogue (conforme au PDF portfolio) :
+  Produits → Fournisseur → « Par spécialité » (spécialités médicales)
+                         → « Par type »      (types de produit)
+
+Chaque produit est enregistré une seule fois et référencé par
+plusieurs spécialités / types via des relations (productIds).
+Un même produit peut donc apparaître dans plusieurs vues sans
+duplication d'enregistrement.
+
+Structure attendue des images :
+  {fournisseur}/_products/{slug-produit}.jpg|png|webp|svg
+  {fournisseur}/_par-specialite/{slug-specialite}.jpg|png|webp|svg
+  {fournisseur}/_par-type/{slug-type}.jpg|png|webp|svg
+
+Exemples :
+  karl-storz/_products/image1-s-connect-ii.jpg
+  karl-storz/_products/flex-x2s-set.png
+  karl-storz/_par-specialite/urologie-endourologie.jpg
+  karl-storz/_par-type/cameras-imagerie.png
+  erbe/_products/vio-3.png
+  erbe/_par-specialite/gynecologie.jpg
+  erbe/_par-type/generateurs-electrochirurgie.png
+  rocamed/_products/rocastone-helical.webp
+  rocamed/_par-specialite/lithotritie-calculs-urinaires.jpg
+  rocamed/_par-type/extraction-calculs.png
+  integra/_products/cusa-clarity.jpg
+  integra/_par-specialite/neurochirurgie-cranienne.jpg
+  integra/_par-type/aspiration-ultrasonique.png
+
+Si le fichier est absent, le site affiche un placeholder SVG
+avec le nom du produit et la référence de commande.
+
+Fournisseurs (ids) : karl-storz | erbe | rocamed | integra

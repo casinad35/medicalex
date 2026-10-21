@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#f0f4f8"/>
+  <circle cx="400" cy="280" r="120" fill="none" stroke="#1a4a8a" stroke-width="8"/>
+  <circle cx="400" cy="280" r="40" fill="#2b8fd9"/>
+  <text x="400" y="460" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" fill="#1a3a5c" font-weight="700">Dr. Mach — Scialytique 8MC</text>
+  <text x="400" y="500" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#5a6a7a">Image de démonstration — à remplacer</text>
+</svg>
